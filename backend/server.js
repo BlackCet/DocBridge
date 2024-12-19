@@ -3,6 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+//require routes
+const doctorRoutes = require('./routes/doctorRoutes');
+const patientRoutes = require('./routes/patientRoutes');
+
 //load environment variables
 dotenv.config();
 
@@ -11,6 +15,10 @@ const app = express()
 
 //middleware
 app.use(express.json());
+
+// Use routes
+app.use('/api/doctors', doctorRoutes);
+app.use('/api/patients', patientRoutes);
 
 //connect to database
 mongoose.connect(process.env.MONGO_URI)
