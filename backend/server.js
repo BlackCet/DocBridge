@@ -1,12 +1,25 @@
+//require packages
 const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const app = express();
-const port = 4000;
+//load environment variables
+dotenv.config();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// Initialize express
+const app = express()
 
-app.listen(port, () => {
-    console.log(`Server is running on ${port}`);
-});
+//middleware
+app.use(express.json());
+
+//connect to database
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    // listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log(`connected to database, app listening on port ${process.env.PORT}`);
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+  })
