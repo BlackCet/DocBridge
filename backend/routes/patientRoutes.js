@@ -3,6 +3,8 @@ const { signup, login, getProfile, updateProfile } = require('../controllers/pat
 
 const router = express.Router();
 
+const requireAuth = require('../middleware/requireAuth');
+
 // Patient signup route
 router.post('/signup', signup);
 
@@ -10,9 +12,9 @@ router.post('/signup', signup);
 router.post('/login', login);
 
 // Get patient profile route
-router.get('/:patientId/profile', getProfile);
+router.get('/:patientId/profile', requireAuth, getProfile);
 
 // Update patient profile route
-router.put('/:patientId/profile', updateProfile);
+router.put('/:patientId/profile', requireAuth, updateProfile);
 
 module.exports = router;

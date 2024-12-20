@@ -16,6 +16,12 @@ const app = express()
 //middleware
 app.use(express.json());
 
+//logger middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+})
+
 // Use routes
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
