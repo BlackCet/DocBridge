@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 //require routes
 const doctorRoutes = require('./routes/doctorRoutes');
@@ -12,6 +13,13 @@ dotenv.config();
 
 // Initialize express
 const app = express()
+
+// Use CORS middleware to allow requests from specific origins (like your frontend)
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow your frontend to make requests
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
+  credentials: true, // Allow cookies or authentication headers to be sent
+}));
 
 //middleware
 app.use(express.json());
