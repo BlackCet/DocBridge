@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import {useLogin} from '../hooks/useLogin';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const {login, error, isLoading} = useLogin();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Add your form submission logic here
+
+        await login(email, password);
     };
 
     return (

@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 //require routes
 const doctorRoutes = require('./routes/doctorRoutes');
@@ -15,6 +16,9 @@ const app = express()
 
 //middleware
 app.use(express.json());
+
+//cors middleware
+app.use(cors());
 
 //logger middleware
 app.use((req, res, next) => {
