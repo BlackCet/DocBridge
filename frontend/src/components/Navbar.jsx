@@ -1,7 +1,16 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { useLogout } from "../hooks/useLogout";
+import {useAuthContext} from "../hooks/useAuthContext";
 
 function Navbar() {
+    const { logout } = useLogout()
+    const {user} = useAuthContext()
+
+    const handleClick = () => {
+      logout()
+    }
+
     return (
         <div>
             <div className="navbar" style={{ backgroundColor: "#213555", color: "#F5EFE7" }}>
@@ -90,20 +99,33 @@ function Navbar() {
 
                 {/* Navbar End - Buttons */}
                 <div className="navbar-end flex gap-4">
-                    <Link
+                    {!user && (<Link
                         className="btn border-none"
                         style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}
                         to="/list-your-practice"
                     >
                         List your Practice
-                    </Link>
-                    <Link
+                    </Link>)}
+                    {!user && (<Link
                         className="btn border-none"
                         style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}
                         to="/"
                     >
                         Signup
-                    </Link>
+                    </Link>)}
+                    {user && (
+                        <div className="btn border-none" style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}>
+                            Welcome, {user.patient.username}
+                        </div>
+                    )}
+                    {user && (
+                        <button
+                        className="btn border-none"
+                        style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}
+                        onClick={handleClick}
+                    >
+                        Logout
+                    </button>)}
                 </div>
             </div>
         </div>

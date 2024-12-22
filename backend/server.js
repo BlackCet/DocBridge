@@ -24,6 +24,9 @@ app.use(cors({
 //middleware
 app.use(express.json());
 
+//cors middleware
+app.use(cors());
+
 //logger middleware
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
