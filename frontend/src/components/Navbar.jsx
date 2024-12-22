@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useLogout } from "../hooks/useLogout";
-import {useAuthContext} from "../hooks/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Navbar() {
     const { logout } = useLogout()
-    const {user} = useAuthContext()
+    const { user } = useAuthContext()
 
     const handleClick = () => {
-      logout()
+        logout()
     }
 
     return (
@@ -41,7 +41,9 @@ function Navbar() {
                                 <details>
                                     <summary style={{ color: "#213555" }}>Login</summary>
                                     <ul className="p-2">
-                                        <li><a style={{ color: "#213555" }}>DOCTOR</a></li>
+                                        <li><Link to="/doctorlogin" style={{ color: "#213555" }}>
+                                            DOCTOR
+                                        </Link></li>
                                         <li><Link to="/patientlogin" style={{ color: "#213555" }}>
                                             PATIENT
                                         </Link></li>
@@ -83,26 +85,31 @@ function Navbar() {
                                 </ul>
                             </details>
                         </li>
-                        <li>
-                            <details>
-                                <summary style={{ color: "#F5EFE7" }}>Login</summary>
-                                <ul className="p-2" style={{ backgroundColor: "#D8C4B6", color: "#213555" }}>
-                                    <li><a style={{ color: "#213555" }}>DOCTOR</a></li>
-                                    <li><Link to="/patientlogin" style={{ color: "#213555" }}>
-                                        PATIENT
-                                    </Link></li>
-                                </ul>
-                            </details>
-                        </li>
+                        {!user && ( // Conditionally render the Login button only if the user is not logged in
+                            <li>
+                                <details>
+                                    <summary style={{ color: "#F5EFE7" }}>Login</summary>
+                                    <ul className="p-2" style={{ backgroundColor: "#D8C4B6", color: "#213555" }}>
+                                        <li><Link to="/doctorlogin" style={{ color: "#213555" }}>
+                                            DOCTOR
+                                        </Link></li>
+                                        <li><Link to="/patientlogin" style={{ color: "#213555" }}>
+                                            PATIENT
+                                        </Link></li>
+                                    </ul>
+                                </details>
+                            </li>
+                        )}
                     </ul>
                 </div>
+
 
                 {/* Navbar End - Buttons */}
                 <div className="navbar-end flex gap-4">
                     {!user && (<Link
                         className="btn border-none"
                         style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}
-                        to="/list-your-practice"
+                        to="/listpractice"
                     >
                         List your Practice
                     </Link>)}
@@ -115,17 +122,17 @@ function Navbar() {
                     </Link>)}
                     {user && (
                         <div className="btn border-none" style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}>
-                            Welcome, {user.patient.username}
+                            Welcome, {user.patient?.username || user.doctor?.username}
                         </div>
                     )}
                     {user && (
                         <button
-                        className="btn border-none"
-                        style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}
-                        onClick={handleClick}
-                    >
-                        Logout
-                    </button>)}
+                            className="btn border-none"
+                            style={{ backgroundColor: "#3E5879", color: "#F5EFE7" }}
+                            onClick={handleClick}
+                        >
+                            Logout
+                        </button>)}
                 </div>
             </div>
         </div>
