@@ -16,13 +16,12 @@ function App() {
     <Router>
       <div className="min-h-screen">
         <Routes>
-          <Route path="/" element={!user ? <Homepage /> : <Navigate to={user.usertype === "patient" ? "/dashboard" : "/doctordashboard"} />} />
+          <Route path="/" element={!user ? <Homepage /> : <Navigate to="/dashboard" />} />
+          <Route path="/listpractice" element={!user ? <ListPractice /> : <Navigate to="/doctor"/>} />
           <Route path="/patientlogin" element={!user ? <PatientLogin /> : <Navigate to="/dashboard" />} />
-          <Route path="/dashboard" element={user && user.usertype === "patient" ? <Dashboard /> : <Navigate to="/" />} />
-          <Route path="/listpractice" element={!user ? <ListPractice /> : <Navigate to="/doctorlogin" />} />
           <Route path="/doctorlogin" element={!user ? <LoginAsDoctor /> : <Navigate to="/doctordashboard" />} />
-          <Route path="/doctordashboard" element={user && user.usertype === "doctor" ? <DoctorDashboardPage /> : <Navigate to="/" />} />
-
+          <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/patientlogin" />} />
+          <Route path="/doctordashboard" element={user ? <DoctorDashboardPage /> : <Navigate to="/doctorlogin" />} />
         </Routes>
       </div>
     </Router>
