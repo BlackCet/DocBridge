@@ -107,4 +107,22 @@ const approveDoctor = async (req, res) => {
     }
 };
 
-module.exports = { signup, login, getProfile, updateProfile, getDoctors, approveDoctor };
+// Get doctors by specialisation
+const getDoctorsByspecialisation = async (req, res) => {
+    const { specialisation } = req.params;
+    //console.log("Received specialisation:", specialisation); // Add this log
+
+    try {
+        // Find doctors by specialisation
+        const doctors = await Doctor.find({ specialisation: specialisation });
+        if (doctors.length === 0) {
+            return res.status(404).json({ error: 'No doctors found with this specialisation' });
+        }
+        res.status(200).json(doctors);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching doctors by specialisation' });
+    }
+};
+
+
+module.exports = { signup, login, getProfile, updateProfile, getDoctors, approveDoctor, getDoctorsByspecialisation };

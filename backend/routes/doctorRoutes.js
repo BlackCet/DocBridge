@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup, login, getProfile, updateProfile, getDoctors, approveDoctor } = require('../controllers/doctorController');
+const { signup, login, getProfile, updateProfile, getDoctors, approveDoctor, getDoctorsByspecialisation } = require('../controllers/doctorController');
 
 const router = express.Router();
 
@@ -22,5 +22,8 @@ router.get('/docs', getDoctors);
 
 // approve the doctor
 router.patch('/:doctorId/approve', approveDoctor);
+
+// Get doctors by specialisation route
+router.get('/specialisation/:specialisation', getDoctorsByspecialisation);
 
 module.exports = router;

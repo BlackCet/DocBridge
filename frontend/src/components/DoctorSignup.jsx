@@ -158,10 +158,7 @@ function Signup() {
                                         className="border rounded w-full p-2 bg-white"
                                     >
                                         <option value="">Select your specialisation</option>
-                                        <option value="Cardiology">Cardiology</option>
-                                        <option value="Dermatology">Dermatology</option>
-                                        <option value="Pediatrics">Pediatrics</option>
-                                        <option value="Neurology">Neurology</option>
+                                
                                         <option value="Orthopedics">Orthopedics</option>
                                         <option value="General Practitioner">General Practitioner</option>
                                         <option value="Pediatrician">Pediatrician</option>
