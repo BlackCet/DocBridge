@@ -150,18 +150,50 @@ function Signup() {
                                     />
                                 </div>
 
-                                {/* Specialisation */}
+                                {/* Specialisation Section */}
                                 <div>
                                     <label className="block mb-2 text-gray-600">Specialisation:</label>
-                                    <input
-                                        type="text"
-                                        value={specialisation}
+                                    <select
                                         onChange={(e) => setSpecialisation(e.target.value)}
-                                        placeholder="What is your Specialisation"
                                         className="border rounded w-full p-2 bg-white"
-                                    />
+                                    >
+                                        <option value="">Select your specialisation</option>
+                                        <option value="Cardiology">Cardiology</option>
+                                        <option value="Dermatology">Dermatology</option>
+                                        <option value="Pediatrics">Pediatrics</option>
+                                        <option value="Neurology">Neurology</option>
+                                        <option value="Orthopedics">Orthopedics</option>
+                                        <option value="General Practitioner">General Practitioner</option>
+                                        <option value="Pediatrician">Pediatrician</option>
+                                        <option value="Endocrinologist">Endocrinologist</option>
+                                        <option value="Nephrologist">Nephrologist</option>
+                                        <option value="Pulmonologist">Pulmonologist</option>
+                                        <option value="Gastroenterologist">Gastroenterologist</option>
+                                        <option value="Cardiologist">Cardiologist</option>
+                                        <option value="Dermatologist">Dermatologist</option>
+                                        <option value="Neurologist">Neurologist</option>
+                                        <option value="Psychiatrist">Psychiatrist</option>
+                                        <option value="Radiologist">Radiologist</option>
+                                        <option value="Allergist">Allergist</option>
+                                        <option value="Hematologist">Hematologist</option>
+                                        <option value="Infectious Disease Specialist">Infectious Disease Specialist</option>
+                                        <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+                                        <option value="Plastic Surgeon">Plastic Surgeon</option>
+                                        <option value="Cardiac Surgeon">Cardiac Surgeon</option>
+                                        <option value="Neurosurgeon">Neurosurgeon</option>
+                                        <option value="General Surgeon">General Surgeon</option>
+                                        <option value="Ophthalmic Surgeon">Ophthalmic Surgeon</option>
+                                        <option value="ENT Surgeon">ENT Surgeon</option>
+                                        <option value="Transplant Surgeon">Transplant Surgeon</option>
+                                    </select>
+                                    <div className="mt-2">
+                                        {specialisation && (
+                                            <span className="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
+                                                {specialisation}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
-
                                 {/* Specialisation Details */}
                                 <div>
                                     <label className="block mb-2 text-gray-600">Specialisation Details Link:</label>
