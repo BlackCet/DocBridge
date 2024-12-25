@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import ListPractice from "./pages/ListPractice";
 import LoginAsDoctor from "./pages/LoginAsDoctor";
 import DoctorDashboardPage from "./pages/DoctorDashboardPage";
+import AdminPage from "./pages/AdminPage";
+
 
 function App() {
   const { user } = useAuthContext();
@@ -22,6 +24,7 @@ function App() {
           <Route path="/doctorlogin" element={!user ? <LoginAsDoctor /> : <Navigate to="/doctordashboard" />} />
           <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/patientlogin" />} />
           <Route path="/doctordashboard" element={user ? <DoctorDashboardPage /> : <Navigate to="/doctorlogin" />} />
+          <Route path="/admin" element= {<AdminPage/>} />
         </Routes>
       </div>
     </Router>

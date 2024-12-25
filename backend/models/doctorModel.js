@@ -102,6 +102,10 @@ doctorSchema.statics.login = async function (email, password) {
         throw new Error('Incorrect email');
     }
 
+    if (!doctor.isApproved) {
+        throw new Error('Your account is not approved yet. Please contact admin.');
+      }
+
     const isMatch = await bcrypt.compare(password, doctor.password);
     if (!isMatch) {
         throw new Error('Incorrect password');

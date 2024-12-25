@@ -12,27 +12,27 @@ function DoctorDashboard() {
                     <div className="bg-white rounded-lg shadow-md p-6">
                         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Manage Appointments</h2>
                         <p className="text-gray-600 mb-6">
-                            Schedule, reschedule, or cancel your appointments with ease.
+                            View, approve, or reschedule appointments with your patients.
                         </p>
                         <Link
                             to="/appointments"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
-                            View Appointments
+                            Manage Appointments
                         </Link>
                     </div>
 
-                    {/* Medical History Section */}
+                    {/* Patient Records Section */}
                     <div className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Medical History</h2>
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Patient Records</h2>
                         <p className="text-gray-600 mb-6">
-                            Review your past appointments and medical records.
+                            Access and update patient medical histories and treatment plans.
                         </p>
                         <Link
-                            to="/medical-history"
+                            to="/patient-records"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
-                            View History
+                            View Records
                         </Link>
                     </div>
 
@@ -40,7 +40,7 @@ function DoctorDashboard() {
                     <div className="bg-white rounded-lg shadow-md p-6">
                         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Profile Settings</h2>
                         <p className="text-gray-600 mb-6">
-                            Update your personal information and preferences.
+                            Update your professional profile and availability settings.
                         </p>
                         <Link
                             to="/profile"
@@ -54,7 +54,7 @@ function DoctorDashboard() {
                     <div className="bg-white rounded-lg shadow-md p-6">
                         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Notifications</h2>
                         <p className="text-gray-600 mb-6">
-                            Stay updated with the latest health tips and appointment reminders.
+                            Stay updated with important alerts and patient inquiries.
                         </p>
                         <Link
                             to="/notifications"
@@ -64,34 +64,35 @@ function DoctorDashboard() {
                         </Link>
                     </div>
 
-                    {/* Payment Section */}
+                    {/* Billing Section */}
                     <div className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Payment History</h2>
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Billing and Payments</h2>
                         <p className="text-gray-600 mb-6">
-                            Access your payment receipts and billing information.
+                            Manage invoices and track payments from patients.
                         </p>
                         <Link
-                            to="/payments"
+                            to="/billing"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
-                            View Payments
+                            Manage Billing
                         </Link>
                     </div>
 
-                    {/* Health Tips Section */}
+                    {/* Health Articles Section */}
                     <div className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Health Tips</h2>
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Health Articles</h2>
                         <p className="text-gray-600 mb-6">
-                            Explore articles and tips for maintaining a healthy lifestyle.
+                            Share insights and write articles to guide your patients.
                         </p>
                         <Link
-                            to="/health-tips"
+                            to="/health-articles"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
-                            Read Tips
+                            Write Articles
                         </Link>
                     </div>
                 </div>
+
             </div>
         </div>
     );

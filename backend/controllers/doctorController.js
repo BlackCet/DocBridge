@@ -76,4 +76,35 @@ const updateProfile = async (req, res) => {
     }
 };
 
-module.exports = { signup, login, getProfile, updateProfile };
+// Get all doctors
+getDoctors = async (req, res) => {
+    try {
+        const doctors = await Doctor.find();
+        res.status(200).json(doctors);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching doctors' });
+    }
+}
+
+//function to approve the doctor
+const approveDoctor = async (req, res) => {
+    const { doctorId } = req.params;
+    try {
+        const doctor = await Doctor.findByIdAndUpdate(doctorId, { isApproved: true }, {
+            new: true,
+            runValidators: true,
+        }).select('-password');
+        if (!doctor) {
+            return res.status(404).json({ error: 'Doctor not found' });
+        }
+        res.status(200).json({ message: 'Doctor approved successfully', doctor });
+    } catch (error) {
+        console.error('Error approving doctor:', error.message);
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ error: 'Invalid update data', details: error.errors });
+        }
+        res.status(500).json({ error: 'Error approving doctor' });
+    }
+};
+
+module.exports = { signup, login, getProfile, updateProfile, getDoctors, approveDoctor };

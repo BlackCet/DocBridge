@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup, login, getProfile, updateProfile } = require('../controllers/doctorController');
+const { signup, login, getProfile, updateProfile, getDoctors, approveDoctor } = require('../controllers/doctorController');
 
 const router = express.Router();
 
@@ -16,5 +16,11 @@ router.get('/:doctorId/profile', requireAuth, getProfile);
 
 // Update doctor profile route
 router.put('/:doctorId/profile', requireAuth, updateProfile);
+
+// get the list of all doctors
+router.get('/docs', getDoctors);
+
+// approve the doctor
+router.patch('/:doctorId/approve', approveDoctor);
 
 module.exports = router;

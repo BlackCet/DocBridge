@@ -17,7 +17,7 @@ const app = express()
 // Use CORS middleware to allow requests from specific origins (like your frontend)
 app.use(cors({
   origin: 'http://localhost:5173', // Allow your frontend to make requests
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Allow specific methods
   credentials: true, // Allow cookies or authentication headers to be sent
 }));
 
