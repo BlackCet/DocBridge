@@ -5,6 +5,7 @@ import {useAuthContext} from "./hooks/useAuthContext";
 import Homepage from "./pages/Homepage";
 import PatientLogin from "./pages/PatientLogin";
 import Dashboard from "./pages/Dashboard";
+import Chat from "./pages/Chat";
 
 function App() {
   const {user} = useAuthContext();
@@ -16,6 +17,9 @@ function App() {
           <Route path="/" element={!user ? <Homepage /> : <Navigate to="/dashboard" />} />
           <Route path="/patientlogin" element={!user ? <PatientLogin /> : <Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/patientlogin" />} />
+          <Route path="/Chat" element={<Chat />} />
+        
+
           
         </Routes>
       </div>

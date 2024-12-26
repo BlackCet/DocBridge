@@ -1,81 +1,85 @@
-import React, { useState } from 'react';
-import './style.css'; // Make sure your CSS is in the same directory or update the path accordingly
+import React, { useEffect, useState } from "react";
+import ScrollToBottom from 'react-scroll-to-bottom';
+import './chatBox.css';
 
-const ChatApp = () => {
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    { username: 'Brad', time: '9:12pm', text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, repudiandae.' },
-    { username: 'Mary', time: '9:15pm', text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, repudiandae.' }
-  ]);
-  const users = ['Brad', 'John', 'Mary', 'Paul', 'Mike'];
-  const roomName = 'JavaScript';
+function ChatBox({ socket, username, room }) {
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
 
-  // Handle message input change
-  const handleInputChange = (e) => {
-    setMessage(e.target.value);
-  };
 
-  // Handle sending a message
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (message.trim()) {
-      const newMessage = {
-        username: 'You', // Replace with the actual username if needed
-        time: new Date().toLocaleTimeString(),
-        text: message
+  const sendMessage = async () => {
+    if (currentMessage !== "") {
+      const messageData = {
+        room: room,
+        author: username,
+        message: currentMessage,
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
       };
-      setMessages([...messages, newMessage]);
-      setMessage(''); // Clear the input after sending
+
+      await socket.emit("send_message", messageData);
+      setCurrentMessage(""); // Reset input field
+      setMessageList((list) => [...list, messageData]);
     }
   };
 
+  useEffect(() => {
+    const handleMessage = (data) => {
+      // console.log(data);
+      setMessageList((list) => [...list, data]);
+    };
+
+    socket.on("receive_message", handleMessage);
+
+    return () => {
+      socket.off("receive_message", handleMessage);
+    };
+  }, [socket]);
+
   return (
-    <div className="chat-container">
-      <header className="chat-header">
-        <h1><i className="fas fa-smile"></i> ChatCord</h1>
-        <button className="btn" onClick={() => alert('Leave Room clicked')}>Leave Room</button>
-      </header>
-
-      <main className="chat-main">
-        <div className="chat-sidebar">
-          <h3><i className="fas fa-comments"></i> Room Name:</h3>
-          <h2>{roomName}</h2>
-          <h3><i className="fas fa-users"></i> Users</h3>
-          <ul id="users">
-            {users.map((user, index) => (
-              <li key={index}>{user}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="chat-messages">
-          {messages.map((msg, index) => (
-            <div className="message" key={index}>
-              <p className="meta">{msg.username} <span>{msg.time}</span></p>
-              <p className="text">{msg.text}</p>
+    <div className="chat-window">
+      <div className="chat-header">
+        <p>LIVE CHAT</p>
+      </div>
+      <div className="chat-body">
+        <ScrollToBottom className="message-container"> 
+        {messageList.map((messageContent) => {
+          return (
+            <div 
+              className="message"
+              id={username === messageContent.author ? "person1" : "person2"}
+            >
+              <div>
+                <div className="message-content">
+                  <p>{messageContent.message}</p>
+                </div>
+                <div className="message-meta">
+                  <p id="author">{messageContent.author}</p>
+                  <p id="time">{messageContent.time}</p>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </main>
+          )
+        })}
+        </ScrollToBottom>
+      </div>
+      <div className="chat-footer">
+        <input
+          type="text"
+          placeholder="Type a message"
+          value={currentMessage} // Bind input value to state
+          onChange={(event) => setCurrentMessage(event.target.value)}
 
-      <div className="chat-form-container">
-        <form id="chat-form" onSubmit={handleSubmit}>
-          <input
-            id="msg"
-            type="text"
-            placeholder="Enter Message"
-            value={message}
-            onChange={handleInputChange}
-            required
-            autoComplete="off"
-          />
-          <button type="submit" className="btn">
-            <i className="fas fa-paper-plane"></i> Send
-          </button>
-        </form>
+          onKeyPress={(event) => {
+            event.key === "Enter" && sendMessage();
+          }}
+        />
+        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
-};
+}
 
-export default ChatApp;
+export default ChatBox;
