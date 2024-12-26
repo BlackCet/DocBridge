@@ -47,7 +47,7 @@ function Signup() {
 
     return (
         <div>
-            <div className="bg-gray-100 flex items-center justify-center min-h-screen" style={{ color: "black" }}>
+            <div className=" flex items-center justify-center min-h-screen" style={{ color: "black" }}>
                 <section className="bg-light-gray px-6 py-16 mx-4 w-full flex flex-col items-center">
                     {/* Introductory Text */}
                     <p className="text-md text-navydark mb-2 text-center">

@@ -29,7 +29,7 @@ const doctorSchema = new Schema({
     },
     profilePicture: {
         type: String,
-        default: "https://example.com/default-profile-picture.jpg" // Placeholder URL
+        default: "" // Placeholder URL
     },
     dateOfBirth: {
         type: Date,

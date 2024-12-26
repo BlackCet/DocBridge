@@ -2,6 +2,7 @@ import { createContext, useReducer, useEffect } from 'react'
 
 export const AuthContext = createContext()
 
+// Reducer function to manage auth state
 export const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
@@ -15,23 +16,23 @@ export const authReducer = (state, action) => {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, { 
-    user: null
+    user: null // Default value for user
   })
 
+  // Retrieve the user from localStorage when the component mounts
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'))
+    const storedUser = JSON.parse(localStorage.getItem('user'))
 
-    if (user) {
-      dispatch({ type: 'LOGIN', payload: user }) 
+    if (storedUser) {
+      dispatch({ type: 'LOGIN', payload: storedUser }) 
     }
-  }, [])
+  }, []) // Empty dependency array ensures this effect runs once on mount
 
-  console.log('AuthContext state:', state)
+  console.log('AuthContext state:', state) // You can remove this later after testing
   
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
-      { children }
+      {children}
     </AuthContext.Provider>
   )
-
 }

@@ -1,5 +1,6 @@
 const Doctor = require('../models/doctorModel');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); // for hashing passwords
 
 // Create a token function
 const createToken = (_id) => {
@@ -48,31 +49,54 @@ const getProfile = async (req, res) => {
 };
 
 // Update doctor profile
-const updateProfile = async (req, res) => {
-    const { doctorId } = req.params;
-    const updateData = req.body;
-
+const updateDoctor = async (req, res) => {
     try {
-        // Find and update the doctor profile
-        const doctor = await Doctor.findByIdAndUpdate(doctorId, updateData, {
+        const { username, profilePicture, fullName, phone, email, password, specialisation, specialisationDetails, experience } = req.body;
+        const doctorId = req.user._id;
+
+        // Prepare updates object
+        const updates = {};
+
+        // Check and update fields only if they are provided
+        if (username) updates.username = username;
+        if (profilePicture) updates.profilePicture = profilePicture;
+        if (fullName) updates.fullName = fullName;
+        if (phone) updates.phone = phone;
+        if (specialisation) updates.specialisation = specialisation;
+        if (specialisationDetails) updates.specialisationDetails = specialisationDetails;
+        if (experience) updates.experience = experience;
+
+        // If email is being updated, check if it's already in use
+        if (email) {
+            const existingDoctor = await Doctor.findOne({ email });
+            if (existingDoctor && existingDoctor._id.toString() !== doctorId.toString()) {
+                return res.status(400).json({ error: "Email is already in use by another doctor" });
+            }
+            updates.email = email;
+        }
+
+        // If password is provided, hash it before updating
+        if (password) {
+            const salt = await bcrypt.genSalt(10); // generate a salt
+            updates.password = await bcrypt.hash(password, salt); // hash the password
+        }
+
+        // Update the doctor document
+        const updatedDoctor = await Doctor.findByIdAndUpdate(doctorId, updates, {
             new: true, // Return the updated document
-            runValidators: true, // Ensure validation is applied
-        }).select('-password'); // Exclude password from the response
+            runValidators: true, // Ensure validations run
+        });
 
-        if (!doctor) {
-            return res.status(404).json({ error: 'Doctor not found' });
+        // If no doctor is found, return an error
+        if (!updatedDoctor) {
+            return res.status(404).json({ error: "Doctor not found" });
         }
 
-        res.status(200).json({ message: 'Profile updated successfully', doctor });
+        // Return the updated doctor information
+        res.status(200).json(updatedDoctor);
     } catch (error) {
-        console.error('Error updating profile:', error.message);
-
-        // Handle validation errors specifically
-        if (error.name === 'ValidationError') {
-            return res.status(400).json({ error: 'Invalid update data', details: error.errors });
-        }
-
-        res.status(500).json({ error: 'Error updating profile' });
+        console.error("Error updating doctor profile:", error);
+        res.status(500).json({ error: "Failed to update profile" });
     }
 };
 
@@ -125,4 +149,4 @@ const getDoctorsByspecialisation = async (req, res) => {
 };
 
 
-module.exports = { signup, login, getProfile, updateProfile, getDoctors, approveDoctor, getDoctorsByspecialisation };
+module.exports = { signup, login, getProfile, updateDoctor, getDoctors, approveDoctor, getDoctorsByspecialisation };

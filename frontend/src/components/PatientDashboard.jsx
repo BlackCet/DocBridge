@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function PatientDashboard() {
     return (
-        <div className="bg-gray-100 min-h-screen">
+        <div className=" min-h-screen">
             <div className="container mx-auto py-10 px-4">
                 <h1 className="text-4xl font-bold text-center text-navylight mb-8">Welcome to Your Dashboard</h1>
 

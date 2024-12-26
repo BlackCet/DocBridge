@@ -13,7 +13,7 @@ function DoctorLogin() {
     };
 
     return (
-        <div className="bg-gray-100 flex items-center justify-center min-h-screen" style={{ color: "black" }}>
+        <div className=" flex items-center justify-center min-h-screen" style={{ color: "black" }}>
             <section className="bg-light-gray px-6 py-20 mx-4 w-full flex flex-col md:flex-row justify-center items-center">
                 <div className="md:w-1/2 mx-5 flex flex-col justify-center items-center text-center md:text-left">
                     <h1 className="my-6 font-bold text-navylight">
@@ -34,7 +34,7 @@ function DoctorLogin() {
                 <div className="md:w-1/2 mb-4 mx-1 md:mt-0 flex justify-center items-center mt-8 md:mt-0">
                     <div className="form-wrapper w-full max-w-sm bg-white p-8 rounded shadow-md">
                         <form className="login" onSubmit={handleSubmit}>
-                            <h3 className="text-2xl text-gray-800 font-semibold mb-4">Log In</h3>
+                            <h3 className="text-2xl text-gray-800 font-semibold mb-4">Doctor Login</h3>
                             <label className="block mb-2 text-gray-600">Email address:</label>
                             <input
                                 type="email"

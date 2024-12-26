@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function DoctorDashboard() {
+    const { user } = useAuthContext(); 
     return (
-        <div className="bg-gray-100 min-h-screen">
+        <div className=" min-h-screen">
             <div className="container mx-auto py-10 px-4">
                 <h1 className="text-4xl font-bold text-center text-navylight mb-8">Welcome to DOCTOR Dashboard</h1>
 
@@ -43,7 +45,7 @@ function DoctorDashboard() {
                             Update your professional profile and availability settings.
                         </p>
                         <Link
-                            to="/profile"
+                            to={user && user.doctor ? `/profile/${user.doctor._id}` : "/profile"}
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
                             Update Profile

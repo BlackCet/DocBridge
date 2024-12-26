@@ -56,6 +56,21 @@ function Navbar() {
                                     </ul>
                                 </details>
                             </li>
+                            {/* Add the dashboard link */}
+                        <li>
+                            <Link
+                                to={user?.doctor ? "/doctordashboard" : "/dashboard"}
+                                style={{
+                                    color: "#213555",
+                                    fontSize: "14px",
+                                    fontWeight: "bold",
+                                    padding: "10px 15px",
+                                    borderRadius: "5px",
+                                }}
+                            >
+                                Dashboard
+                            </Link>
+                        </li>
                             <li>
                                 <details className="relative">
                                     <summary
@@ -112,6 +127,7 @@ function Navbar() {
                                     </ul>
                                 </details>
                             </li>
+                        
 
 
                         </ul>
@@ -142,9 +158,9 @@ function Navbar() {
                                     {/* General Medicine Section */}
                                     <ul className="space-y-2">
                                         <li><strong>General Medicine</strong></li>
-                                        <li><Link to={`/doctorbyspecialisation/General%20Practitioner`} style={{ color: "#213555" } } className="hover:bg-gray-200 p-2 rounded">General Practitioner</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/General%20Practitioner`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">General Practitioner</Link></li>
                                         <li><Link to={`/doctorbyspecialisation/Pediatrician`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Pediatrician</Link></li>
-                                        <li><Link to={`/doctorbyspecialisation/Endocrinologist`}   style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Endocrinologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Endocrinologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Endocrinologist</Link></li>
                                         <li><Link to={`/doctorbyspecialisation/Nephrologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Nephrologist</Link></li>
                                         <li><Link to={`/doctorbyspecialisation/Pulmonologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Pulmonologist</Link></li>
                                         <li><Link to={`/doctorbyspecialisation/Gastroenterologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Gastroenterologist</Link></li>
@@ -188,6 +204,23 @@ function Navbar() {
                                 </div>
                             </details>
                         </li>
+                        {/* Dashboard Button (Conditional) */}
+                        {user && (
+                            <li>
+                                <Link
+                                    to={user?.doctor ? "/doctordashboard" : "/dashboard"}
+                                    style={{
+                                        color: "#F5EFE7",
+                                        fontWeight: "bold",
+                                        padding: "10px 15px",
+                                        borderRadius: "5px"
+                                    }}
+                                >
+                                    Dashboard
+                                </Link>
+                            </li>
+                        )}
+
                         {!user && ( // Conditionally render the Login button only if the user is not logged in
                             <li>
                                 <details>
