@@ -44,6 +44,10 @@ const patientSchema = new Schema({
         type: [String],
         default: []
     },
+    // usertype: {
+    //     type: String,
+    //     default: "patient"
+    // },
     appointments: [{
         type: Schema.Types.ObjectId,
         ref: 'Appointment'
