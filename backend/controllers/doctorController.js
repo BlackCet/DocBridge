@@ -148,5 +148,21 @@ const getDoctorsByspecialisation = async (req, res) => {
     }
 };
 
+// Get doctor profile (unauthorized access)
+const getDocAppointment = async (req, res) => {
+    const { doctorId } = req.params;
 
-module.exports = { signup, login, getProfile, updateDoctor, getDoctors, approveDoctor, getDoctorsByspecialisation };
+    try {
+        const doctor = await Doctor.findById(doctorId).select('fullName username specialisation specialisationDetails experience phone profilePicture'); // Only select public details
+        if (!doctor) {
+            return res.status(404).json({ error: 'Doctor not found' });
+        }
+        res.status(200).json(doctor);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching doctor profile' });
+    }
+};
+
+
+
+module.exports = { signup, login, getProfile, updateDoctor, getDocAppointment, getDoctors, approveDoctor, getDoctorsByspecialisation };

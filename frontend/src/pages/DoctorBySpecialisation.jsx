@@ -60,10 +60,14 @@ const DoctorBySpecialisation = () => {
 
     // Handle book appointment button click
     const handleBookAppointment = (doctorId) => {
-        if (user && user.doctor._id) {
+        if (user && user.patient.usertype === "patient") {
             // Redirect to the booking page with the doctorId
-            navigate(`/book-appointment/${user.doctor._id}`);  // Assuming you have a route like /book-appointment/:doctorId
+            navigate(`/book-appointment/${doctorId}`); // Assuming you have a route like /book-appointment/:doctorId
+        } else if (user) {
+            // If the user is logged in but not a patient
+            alert("Only patients can book appointments.");
         } else {
+            // If no user is logged in, redirect to the login page
             navigate("/patientlogin");
         }
     };

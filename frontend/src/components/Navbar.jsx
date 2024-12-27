@@ -57,20 +57,20 @@ function Navbar() {
                                 </details>
                             </li>
                             {/* Add the dashboard link */}
-                        <li>
-                            <Link
-                                to={user?.doctor ? "/doctordashboard" : "/dashboard"}
-                                style={{
-                                    color: "#213555",
-                                    fontSize: "14px",
-                                    fontWeight: "bold",
-                                    padding: "10px 15px",
-                                    borderRadius: "5px",
-                                }}
-                            >
-                                Dashboard
-                            </Link>
-                        </li>
+                            <li>
+                                <Link
+                                    to={user?.doctor ? "/doctordashboard" : "/dashboard"}
+                                    style={{
+                                        color: "#213555",
+                                        fontSize: "14px",
+                                        fontWeight: "bold",
+                                        padding: "10px 15px",
+                                        borderRadius: "5px",
+                                    }}
+                                >
+                                    Dashboard
+                                </Link>
+                            </li>
                             <li>
                                 <details className="relative">
                                     <summary
@@ -95,39 +95,39 @@ function Navbar() {
                                             padding: "10px",
                                         }}
                                     >
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>General Practitioner</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Pediatrician</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Gynecologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Oncologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Endocrinologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Nephrologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Pulmonologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Ophthalmologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Gastroenterologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Urologist</a></li>
+                                        <li><Link to={`/doctorbyspecialisation/General%20Practitioner`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">General Practitioner</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Pediatrician`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Pediatrician</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Gynecologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Gynecologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Oncologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Oncologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Endocrinologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Endocrinologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Nephrologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Nephrologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Pulmonologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Pulmonologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Ophthalmologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Ophthalmologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Gastroenterologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Gastroenterologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Urologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Urologist</Link></li>
 
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Cardiologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Dermatologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Neurologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Psychiatrist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Radiologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Allergist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Hematologist</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Infectious Disease Specialist</a></li>
+                                        <li><Link to={`/doctorbyspecialisation/Cardiologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Cardiologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Dermatologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Dermatologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Neurologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Neurologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Psychiatrist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Psychiatrist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Radiologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Radiologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Allergist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Allergist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Hematologist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Hematologist</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Infectious%20DiseaseSpecialist`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Infectious Disease Specialist</Link></li>
 
+                                        <li><Link to={`/doctorbyspecialisation/CardiacSurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Cardiac Surgeon</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/Neurosurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Neurosurgeon</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/PlasticSurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Plastic Surgeon</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/GeneralSurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">General Surgeon</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/OrthopedicSurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Orthopedic Surgeon</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/OphthalmicSurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Ophthalmic Surgeon</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/ENTSurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">ENT Surgeon</Link></li>
+                                        <li><Link to={`/doctorbyspecialisation/TransplantSurgeon`} style={{ color: "#213555" }} className="hover:bg-gray-200 p-2 rounded">Transplant Surgeon</Link></li>
 
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Cardiac Surgeon</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Neurosurgeon</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Plastic Surgeon</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>General Surgeon</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Orthopedic Surgeon</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Ophthalmic Surgeon</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>ENT Surgeon</a></li>
-                                        <li><a style={{ color: "#213555", fontSize: "14px" }}>Transplant Surgeon</a></li>
                                     </ul>
                                 </details>
                             </li>
-                        
+
 
 
                         </ul>

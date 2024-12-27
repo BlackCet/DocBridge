@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup, login, getProfile, getDoctors, updateDoctor, approveDoctor, getDoctorsByspecialisation } = require('../controllers/doctorController');
+const { signup, login, getProfile, getDoctors, getDocAppointment, updateDoctor, approveDoctor, getDoctorsByspecialisation } = require('../controllers/doctorController');
 
 const router = express.Router();
 
@@ -12,7 +12,10 @@ router.post('/signup', signup);
 router.post('/login', login);
 
 // Get doctor profile route
-router.get('/profile/:doctorId', requireAuth, getProfile);
+router.get('/profile/:doctorId', requireAuth, getProfile); 
+
+//Get doctor profile for appointment booking
+router.get('/appointmentprofile/:doctorId', getDocAppointment);  //unauthorised
 
 // Update doctor profile route
 router.patch('/profile/:doctorId', requireAuth, updateDoctor);
