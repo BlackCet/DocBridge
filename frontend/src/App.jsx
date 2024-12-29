@@ -10,33 +10,65 @@ import LoginAsDoctor from "./pages/LoginAsDoctor";
 import DoctorDashboardPage from "./pages/DoctorDashboardPage";
 import AdminPage from "./pages/AdminPage";
 
-
 function App() {
   const { user } = useAuthContext();
 
-  //check roles
-  const isDoctor = user?.doctor !== undefined; // Check if logged-in user is a doctor
-  const isPatient = user?.patient !== undefined; // Check if logged-in user is a patient
+  // Role checks
+  const isDoctor = user?.doctor !== undefined;
+  const isPatient = user?.patient !== undefined;
+  const isAdmin = user?.admin !== undefined;
 
   return (
     <Router>
       <div className="min-h-screen">
         <Routes>
-
           {/* Public routes */}
-          <Route path="/" element={!user ? <Homepage /> : <Navigate to="/dashboard" />} />
-          <Route path="/listpractice" element={!user ? <ListPractice /> : <Navigate to="/doctor"/>} />
-          <Route path="/patientlogin" element={!user ? <PatientLogin /> : <Navigate to="/dashboard" />} />
-          <Route path="/doctorlogin" element={!user ? <LoginAsDoctor /> : <Navigate to="/doctordashboard" />} />
+          <Route
+            path="/"
+            element={!user ? <Homepage /> : <Navigate to={isDoctor ? "/doctordashboard" : "/dashboard"} />}
+          />
+          <Route
+            path="/listpractice"
+            element={!user ? <ListPractice /> : <Navigate to={isDoctor ? "/doctordashboard" : "/dashboard"} />}
+          />
+          <Route
+            path="/patientlogin"
+            element={!user ? <PatientLogin /> : <Navigate to={isDoctor ? "/doctordashboard" : "/dashboard"} />}
+          />
+          <Route
+            path="/doctorlogin"
+            element={!user ? <LoginAsDoctor /> : <Navigate to={isDoctor ? "/doctordashboard" : "/dashboard"} />}
+          />
 
+          {/* Patient dashboard */}
+          <Route
+            path="/dashboard"
+            element={
+              user
+                ? isPatient
+                  ? <Dashboard />
+                  : <Navigate to={isDoctor ? "/doctordashboard" : "/"} />
+                : <Navigate to="/patientlogin" />
+            }
+          />
 
-          {/* Protected routes */}
-          <Route path="/dashboard" element={isPatient ? <Dashboard /> : <Navigate to="/patientlogin" />} />
-          <Route path="/doctordashboard" element={isDoctor ? <DoctorDashboardPage /> : <Navigate to="/doctorlogin" />} />
+          {/* Doctor dashboard */}
+          <Route
+            path="/doctordashboard"
+            element={
+              user
+                ? isDoctor
+                  ? <DoctorDashboardPage />
+                  : <Navigate to={isPatient ? "/dashboard" : "/"} />
+                : <Navigate to="/doctorlogin" />
+            }
+          />
 
-          {/* Admin route */}
-          <Route path="/admin" element= {<AdminPage/>} />
-          
+          {/* Admin panel */}
+          <Route
+            path="/admin"
+            element=<AdminPage />
+          />
         </Routes>
       </div>
     </Router>
