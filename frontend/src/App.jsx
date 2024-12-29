@@ -11,6 +11,7 @@ import AdminPage from "./pages/AdminPage";
 import DoctorBySpecialisation from "./pages/DoctorBySpecialisation";
 import DoctorProfilePage from "./pages/DoctorProfilePage";
 import AppointmentBookingPage from "./pages/AppointmentBookingPage";
+import Chat from "./pages/Chat";
 
 function App() {
   const { user } = useAuthContext();
@@ -70,11 +71,7 @@ function App() {
           <Route
             path="/doctorbyspecialisation/:specialisation"
             element={
-              user
-                ? isPatient || isDoctor
-                  ? <DoctorBySpecialisation />
-                  : <Navigate to="/" />
-                : <Navigate to="/patientlogin" />
+              <DoctorBySpecialisation />
             }
           />
           <Route
@@ -103,6 +100,8 @@ function App() {
             path="/admin"
             element=<AdminPage />
           />
+
+<Route path="/Chat" element={<Chat />} />
 
         </Routes>
       </div>

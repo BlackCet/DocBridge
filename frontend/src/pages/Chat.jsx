@@ -1,42 +1,41 @@
-import React from 'react';
+import io from "socket.io-client";
+import ChatBox from './ChatBox';
+import './chat.css';
 
-function Chat() {
-  return (
-    <div className="join-container">
-      <header className="join-header">
-        <h1>
-          <i className="fas fa-smile"></i> ChatCord
-        </h1>
-      </header>
-      <main className="join-main">
-        <form acy
-        tion="chat.html">
-          <div className="form-control">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Enter username..."
-              required
-            />
-          </div>
-          <div className="form-control">
-            <label htmlFor="room">Room</label>
-            <select name="room" id="room">
-              <option value="JavaScript">JavaScript</option>
-              <option value="Python">Python</option>
-              <option value="PHP">PHP</option>
-              <option value="C#">C#</option>
-              <option value="Ruby">Ruby</option>
-              <option value="Java">Java</option>
-            </select>
-          </div>
-          <button type="submit" className="btn">Join Chat</button>
-        </form>
-      </main>
+
+import { useState } from "react";
+
+const socket = io.connect("http://localhost:4000");
+
+function Chat(){
+
+  const [username, setUsername] = useState("");
+  const [room, setRoom] = useState("");
+  const [showChat, setShowChat] = useState(false);
+
+
+  const joinRoom = () => {
+    if(username !== "" && room !==""){
+      socket.emit("join_room", room);
+      setShowChat(true);
+    }
+  }
+  return <div className="App">
+    {!showChat ? (
+    <div className="joinChat Container">
+    <h3>JOIN A CHAT</h3>
+    <input type="text" placeholder="Username" onChange={(event) => {
+      setUsername(event.target.value);
+    }} />
+    <input type="text" placeholder="Room ID"  onChange={(event) => {
+      setRoom(event.target.value);
+    }} />
+    <button onClick={joinRoom}>Join a Room</button>
     </div>
-  );
+    ): (
+    <ChatBox socket={socket} username={username} room={room} />
+  )}
+  </div>
 }
 
 export default Chat;
