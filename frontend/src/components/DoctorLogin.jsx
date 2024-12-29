@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import {useLogin} from '../hooks/useLogin';
+import { useLogin } from '../hooks/useDoctorLogin';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function DoctorLogin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {login, error, isLoading} = useLogin();
+    const { login, error, isLoading } = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add your form submission logic here
-
         await login(email, password);
     };
 
@@ -28,20 +27,20 @@ function Login() {
                         <span className="text-6xl">g</span>
                         <span className="text-7xl">e</span>
                     </h1>
-
-                    <p className="text-gray-700 mb-6">Whether you're looking for an online consultation or need support with in-person visits, DocBridge offers both essential and advanced features to ensure a smooth healthcare experience.</p>
-                    <div className="border-b-2 border-gray-300 my-4 mx-1"></div>
-                    <p className="mb-4">Our mission is to make healthcare more accessible, efficient, and patient-centric by offering a reliable and secure platform where doctors and patients can connect, communicate, and receive the care they deserve.</p>
+                    <p className="text-gray-700 mb-2">DocBridge helps you bring in more new patients and keep them coming back – while saving your practice valuable time.</p>
+                    <div className="border-b-2 border-gray-300 my-1 mx-1"></div>
+                    <p className="mb-4 text-gray-700">Enter DocBridge and make it easier for patients to find and connect with you.</p>
                 </div>
                 <div className="md:w-1/2 mb-4 mx-1 md:mt-0 flex justify-center items-center mt-8 md:mt-0">
                     <div className="form-wrapper w-full max-w-sm bg-white p-8 rounded shadow-md">
                         <form className="login" onSubmit={handleSubmit}>
-                            <h3 className="text-2xl text-gray-800 font-semibold mb-4">Patient Login</h3>
+                            <h3 className="text-2xl text-gray-800 font-semibold mb-4">Doctor Login</h3>
                             <label className="block mb-2 text-gray-600">Email address:</label>
                             <input
                                 type="email"
                                 onChange={(e) => setEmail(e.target.value)}
                                 value={email}
+                                placeholder="Enter your email address"
                                 className="border rounded w-full p-2 mb-4 bg-white"
                             />
                             <label className="block mb-2 text-gray-600">Password:</label>
@@ -49,10 +48,14 @@ function Login() {
                                 type="password"
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}
+                                placeholder="Enter your password"
                                 className="border rounded w-full p-2 mb-4 bg-white"
                             />
-                            <button className="bg-navylight hover:bg-navydark text-white rounded w-full py-2 transition duration-200">
-                                Log in
+                            <button
+                                className="bg-navylight hover:bg-navydark text-white rounded w-full py-2 transition duration-200"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Logging in...' : 'Log in'}
                             </button>
                             {error && <p className="text-red-500 mt-4">{error}</p>}
                         </form>
@@ -63,4 +66,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default DoctorLogin;

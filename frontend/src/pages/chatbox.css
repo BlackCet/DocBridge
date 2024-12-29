@@ -1,0 +1,121 @@
+/* chatBox.css */
+
+/* Chat Window */
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5EFE7; /* beigelight */
+    overflow: hidden;
+  }
+  
+  /* Chat Header */
+  .chat-header {
+    background-color: #213555; /* navydark */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .chat-header p {
+    color: #F5EFE7; /* beigelight */
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Chat Body */
+  .chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    margin-bottom: 15px; /* Add space between messages */
+  }
+  
+  #person1 {
+    align-self: flex-start; /* Left alignment */
+    background-color: #D8C4B6; /* beigedark */
+    border-radius: 10px 10px 10px 0;
+  }
+  
+  #person2 {
+    align-self: flex-end; /* Right alignment */
+    background-color: #213555; /* navydark */
+    color: #F5EFE7; /* beigelight */
+    border-radius: 10px 10px 0 10px;
+  }
+  
+  .message-content {
+    padding: 15px;
+    font-size: 16px;
+    word-wrap: break-word;
+  }
+  
+  /* Meta Info: Time and Author */
+  .message-meta {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 12px;
+    color: #707070;
+    margin-top: 5px;
+  }
+  
+  .message-meta #author {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px; /* Add space between the author and the message */
+  }
+  
+  /* Chat Footer */
+  .chat-footer {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background-color: #213555; /* navydark */
+  }
+  
+  .chat-footer input {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #D8C4B6; /* beigedark */
+    border-radius: 10px;
+    background-color: #3E5879; /* navylight */
+    color: #F5EFE7; /* beigelight */
+    font-size: 16px;
+  }
+  
+  .chat-footer input:focus {
+    outline: none;
+    border-color: #F5EFE7; /* beigelight */
+  }
+  
+  .chat-footer button {
+    background-color: #D8C4B6; /* beigedark */
+    color: #213555; /* navydark */
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .chat-footer button:hover {
+    background-color: #F5EFE7; /* beigelight */
+    color: #3E5879; /* navylight */
+  }
+  

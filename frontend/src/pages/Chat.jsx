@@ -5,7 +5,7 @@ import './chat.css';
 
 import { useState } from "react";
 
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("http://localhost:4000");
 
 function Chat(){
 

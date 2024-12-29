@@ -1,35 +1,32 @@
 const express = require('express');
-const Doctor = require('../models/doctorModel');
-const jwt = require('jsonwebtoken');
+const { signup, login, getProfile, getDoctors, getDocAppointment, updateDoctor, approveDoctor, getDoctorsByspecialisation } = require('../controllers/doctorController');
 
 const router = express.Router();
 
-const createToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+const requireAuth = require('../middleware/requireAuth');
 
-// Doctor signup
-router.post('/signup', async (req, res) => {
-    const { email, password, name, specialization } = req.body;
+// Doctor signup route
+router.post('/signup', signup);
 
-    try {
-        const doctor = await Doctor.signup(email, password, name, specialization);
-        const token = createToken(doctor._id);
-        res.status(201).json({ doctor: doctor.name, token });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+// Doctor login route
+router.post('/login', login);
 
-// Doctor login
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+// Get doctor profile route
+router.get('/profile/:doctorId', requireAuth, getProfile); 
 
-    try {
-        const doctor = await Doctor.login(email, password);
-        const token = createToken(doctor._id);
-        res.status(200).json({ doctor: doctor.name, token });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+//Get doctor profile for appointment booking
+router.get('/appointmentprofile/:doctorId', getDocAppointment);  //unauthorised
+
+// Update doctor profile route
+router.patch('/profile/:doctorId', requireAuth, updateDoctor);
+
+// get the list of all doctors
+router.get('/docs', getDoctors);
+
+// approve the doctor
+router.patch('/:doctorId/approve', approveDoctor);
+
+// Get doctors by specialisation route
+router.get('/specialisation/:specialisation', getDoctorsByspecialisation);
 
 module.exports = router;
