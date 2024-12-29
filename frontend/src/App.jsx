@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
@@ -9,6 +8,9 @@ import ListPractice from "./pages/ListPractice";
 import LoginAsDoctor from "./pages/LoginAsDoctor";
 import DoctorDashboardPage from "./pages/DoctorDashboardPage";
 import AdminPage from "./pages/AdminPage";
+import DoctorBySpecialisation from "./pages/DoctorBySpecialisation";
+import DoctorProfilePage from "./pages/DoctorProfilePage";
+import AppointmentBookingPage from "./pages/AppointmentBookingPage";
 
 function App() {
   const { user } = useAuthContext();
@@ -16,12 +18,12 @@ function App() {
   // Role checks
   const isDoctor = user?.doctor !== undefined;
   const isPatient = user?.patient !== undefined;
-  const isAdmin = user?.admin !== undefined;
 
   return (
     <Router>
       <div className="min-h-screen">
         <Routes>
+
           {/* Public routes */}
           <Route
             path="/"
@@ -101,6 +103,7 @@ function App() {
             path="/admin"
             element=<AdminPage />
           />
+
         </Routes>
       </div>
     </Router>

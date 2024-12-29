@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Patient = require('../models/patientModel');
+const Doctor = require('../models/doctorModel');
 
 const requireAuth = async (req, res, next) => {
     const { authorization } = req.headers;
@@ -14,11 +15,27 @@ const requireAuth = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.SECRET); // Verify the token
 
         console.log('Decoded JWT:', decoded); // Debugging log
-        req.patient = await Patient.findById(decoded._id).select('_id'); // Attach patient to request
 
-        if (!req.patient) {
-            throw new Error('Patient not found');
+        // Determine if the route is for a patient or doctor based on the URL or other criteria
+        let user;
+        if (req.originalUrl.includes('/patients/')) {
+            // If the route contains "/patients/", query the Patient collection
+            user = await Patient.findById(decoded._id).select('_id');
+        } else if (req.originalUrl.includes('/doctors/')) {
+            // If the route contains "/doctors/", query the Doctor collection
+            user = await Doctor.findById(decoded._id).select('_id');
+        } else {
+            // If neither route is found, throw an error
+            throw new Error('Invalid user route');
         }
+
+        // If the user is not found, throw an error
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Attach the user (Patient or Doctor) to the request object
+        req.user = user;
 
         next(); // Continue to the next middleware or route handler
     } catch (error) {

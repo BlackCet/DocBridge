@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup, login, getProfile, updateProfile, getDoctors, approveDoctor } = require('../controllers/doctorController');
+const { signup, login, getProfile, getDoctors, getDocAppointment, updateDoctor, approveDoctor, getDoctorsByspecialisation } = require('../controllers/doctorController');
 
 const router = express.Router();
 
@@ -12,15 +12,21 @@ router.post('/signup', signup);
 router.post('/login', login);
 
 // Get doctor profile route
-router.get('/:doctorId/profile', requireAuth, getProfile);
+router.get('/profile/:doctorId', requireAuth, getProfile); 
+
+//Get doctor profile for appointment booking
+router.get('/appointmentprofile/:doctorId', getDocAppointment);  //unauthorised
 
 // Update doctor profile route
-router.put('/:doctorId/profile', requireAuth, updateProfile);
+router.patch('/profile/:doctorId', requireAuth, updateDoctor);
 
 // get the list of all doctors
 router.get('/docs', getDoctors);
 
 // approve the doctor
 router.patch('/:doctorId/approve', approveDoctor);
+
+// Get doctors by specialisation route
+router.get('/specialisation/:specialisation', getDoctorsByspecialisation);
 
 module.exports = router;
