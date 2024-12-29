@@ -64,6 +64,38 @@ function App() {
             }
           />
 
+          {/* changes pulled from teh frontend branch */}
+          <Route
+            path="/doctorbyspecialisation/:specialisation"
+            element={
+              user
+                ? isPatient || isDoctor
+                  ? <DoctorBySpecialisation />
+                  : <Navigate to="/" />
+                : <Navigate to="/patientlogin" />
+            }
+          />
+          <Route
+            path="/book-appointment/:doctorId"
+            element={
+              user
+                ? isPatient
+                  ? <AppointmentBookingPage />
+                  : <Navigate to="/" />
+                : <Navigate to="/patientlogin" />
+            }
+          />
+          <Route
+            path="/profile/:doctorId"
+            element={
+              user
+                ? isDoctor || isPatient
+                  ? <DoctorProfilePage />
+                  : <Navigate to="/" />
+                : <Navigate to="/doctorlogin" />
+            }
+          />
+
           {/* Admin panel */}
           <Route
             path="/admin"
