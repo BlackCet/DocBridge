@@ -47,55 +47,76 @@ const Admin = () => {
     if (error) return <p>{error}</p>;
 
     return (
-        <div className=" min-h-screen">
+        <div className="min-h-screen">
             <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
-            <table className="min-w-full bg-white border border-gray-300">
-                <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b">Name</th>
-                        <th className="py-2 px-4 border-b">Email</th>
-                        <th className="py-2 px-4 border-b">Specialization</th>
-                        <th className="py-2 px-4 border-b">Approval Status</th>
-                        <th className="py-2 px-4 border-b">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {doctors.map((doctor) => (
-                        <tr key={doctor._id}>
-                            <td className="py-2 px-4 border-b">{doctor.fullName}</td>
-                            <td className="py-2 px-4 border-b">{doctor.email}</td>
-                            <td className="py-2 px-4 border-b">{doctor.specialisation}</td>
-                            <td className="py-2 px-4 border-b">
-                                {doctor.isApproved ? "Approved" : "Pending"}
-                            </td>
-                            <td className="py-2 px-4 border-b">
-                                {!doctor.isApproved && (
-                                    <>
-                                        <button
-                                            className="bg-green-500 text-white py-1 px-2 mr-2 rounded"
-                                            onClick={() => handleApproval(doctor._id, true)}
-                                        >
-                                            Approve
-                                        </button>
-                                        <button
-                                            className="bg-red-500 text-white py-1 px-2 rounded"
-                                            onClick={() => handleApproval(doctor._id, false)}
-                                        >
-                                            Reject
-                                        </button>
-                                    </>
-                                )}
-                            </td>
+                <h1 className="text-2xl font-bold mb-4 text-center">Admin Panel</h1>
+                <table className="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th className="py-2 px-4 border-b text-center">Name</th>
+                            <th className="py-2 px-4 border-b text-center">Email</th>
+                            <th className="py-2 px-4 border-b text-center">Specialization</th>
+                            <th className="py-2 px-4 border-b text-center">Approval Status</th>
+                            <th className="py-2 px-4 border-b text-center">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {doctors.map((doctor) => (
+                            <tr key={doctor._id}>
+                                <td className="py-2 px-4 border-b text-center">{doctor.fullName}</td>
+                                <td className="py-2 px-4 border-b text-center">
+                                    <a
+                                        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${doctor.email}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-600 hover:underline"
+                                    >
+                                        {doctor.email}
+                                    </a>
+                                </td>
+                                <td className="py-2 px-4 border-b text-center">
+                                    {doctor.specialisation}
+                                    {doctor.specialisationDetails && (
+                                        <p>
+                                            <a
+                                                href={doctor.specialisationDetails}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:underline"
+                                            >
+                                                Click here for details
+                                            </a>
+                                        </p>
+                                    )}
+                                </td>
+                                <td className="py-2 px-4 border-b text-center">
+                                    {doctor.isApproved ? "Approved" : "Pending"}
+                                </td>
+                                <td className="py-2 px-4 border-b text-center">
+                                    {!doctor.isApproved && (
+                                        <>
+                                            <button
+                                                className="bg-green-500 text-white py-1 px-2 mr-2 rounded"
+                                                onClick={() => handleApproval(doctor._id, true)}
+                                            >
+                                                Approve
+                                            </button>
+                                            <button
+                                                className="bg-red-500 text-white py-1 px-2 rounded"
+                                                onClick={() => handleApproval(doctor._id, false)}
+                                            >
+                                                Reject
+                                            </button>
+                                        </>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
-        
     );
 };
 
 export default Admin;
-

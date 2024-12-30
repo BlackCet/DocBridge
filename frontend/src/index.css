@@ -5,3 +5,13 @@
 body {
     @apply bg-beigelight text-gray-800; 
   }
+
+/* Style for the date input calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
+}
+
+/* Style for the time input clock icon */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
+}

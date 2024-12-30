@@ -153,7 +153,7 @@ const getDocAppointment = async (req, res) => {
     const { doctorId } = req.params;
 
     try {
-        const doctor = await Doctor.findById(doctorId).select('fullName username specialisation specialisationDetails experience phone profilePicture'); // Only select public details
+        const doctor = await Doctor.findById(doctorId).select('email fullName dateOfBirth username specialisation specialisationDetails experience phone profilePicture'); // Only select public details
         if (!doctor) {
             return res.status(404).json({ error: 'Doctor not found' });
         }

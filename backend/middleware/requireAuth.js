@@ -11,35 +11,41 @@ const requireAuth = async (req, res, next) => {
 
     try {
         // Extract and verify the token
-        const token = authorization.split(' ')[1]; // Extract the token part
-        const decoded = jwt.verify(token, process.env.SECRET); // Verify the token
+        const token = authorization.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).json({ error: 'Authorization token format is incorrect' });
+        }
+
+        const decoded = jwt.verify(token, process.env.SECRET);
 
         console.log('Decoded JWT:', decoded); // Debugging log
 
-        // Determine if the route is for a patient or doctor based on the URL or other criteria
         let user;
+
+        // Check if the user is a patient or doctor
         if (req.originalUrl.includes('/patients/')) {
-            // If the route contains "/patients/", query the Patient collection
             user = await Patient.findById(decoded._id).select('_id');
         } else if (req.originalUrl.includes('/doctors/')) {
-            // If the route contains "/doctors/", query the Doctor collection
             user = await Doctor.findById(decoded._id).select('_id');
         } else {
-            // If neither route is found, throw an error
             throw new Error('Invalid user route');
         }
 
-        // If the user is not found, throw an error
         if (!user) {
-            throw new Error('User not found');
+            return res.status(401).json({ error: 'User not found' });
         }
 
-        // Attach the user (Patient or Doctor) to the request object
-        req.user = user;
+        req.user = user; // Attach the user to the request object
 
-        next(); // Continue to the next middleware or route handler
+        next(); // Proceed to the next middleware or route handler
     } catch (error) {
-        console.error('Error in requireAuth:', error.message); // Debugging log
+        console.error('Error in requireAuth:', error.message);
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ error: 'Invalid token' });
+        } else if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ error: 'Token has expired' });
+        }
         res.status(401).json({ error: 'Request is not authorized' });
     }
 };
