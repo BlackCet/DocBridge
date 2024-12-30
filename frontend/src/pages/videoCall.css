@@ -1,0 +1,68 @@
+/* videoCall.css */
+
+/* Main container styling */
+#main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F5EFE7; /* beigelight */
+}
+
+/* Form container styling */
+#form-container {
+    background-color: #D8C4B6; /* beigedark */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Header text (p tag) styling */
+#header-text {
+    font-size: 24px;
+    color: #213555; /* navydark */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Input field styling */
+#name-input {
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 2px solid #3E5879; /* navylight */
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    max-width: 300px;
+    background-color: #485f7d;
+}
+
+/* Focus state for input field */
+#name-input:focus {
+    border-color: #213555; /* navydark */
+}
+
+/* Button styling */
+#join-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #213555; /* navydark */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Hover effect for button */
+#join-button:hover {
+    background-color: #3E5879; /* navylight */
+}
+
+/* Active state for button */
+#join-button:active {
+    background-color: #1A2B3C; /* Darker shade for active state */
+}

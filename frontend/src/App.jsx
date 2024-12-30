@@ -12,11 +12,12 @@ import DoctorBySpecialisation from "./pages/DoctorBySpecialisation";
 import DoctorProfilePage from "./pages/DoctorProfilePage";
 import AppointmentBookingPage from "./pages/AppointmentBookingPage";
 import Chat from "./pages/Chat";
+import VideoCall from "./pages/VideoCall";
+import VideoRoom from "./pages/VideoRoom";
 
 function App() {
   const { user } = useAuthContext();
 
-  // Role checks
   const isDoctor = user?.doctor !== undefined;
   const isPatient = user?.patient !== undefined;
 
@@ -24,8 +25,7 @@ function App() {
     <Router>
       <div className="min-h-screen">
         <Routes>
-
-          {/* Public routes */}
+          {/* Public Routes */}
           <Route
             path="/"
             element={!user ? <Homepage /> : <Navigate to={isDoctor ? "/doctordashboard" : "/dashboard"} />}
@@ -43,7 +43,7 @@ function App() {
             element={!user ? <LoginAsDoctor /> : <Navigate to={isDoctor ? "/doctordashboard" : "/dashboard"} />}
           />
 
-          {/* Patient dashboard */}
+          {/* Patient Dashboard */}
           <Route
             path="/dashboard"
             element={
@@ -55,7 +55,7 @@ function App() {
             }
           />
 
-          {/* Doctor dashboard */}
+          {/* Doctor Dashboard */}
           <Route
             path="/doctordashboard"
             element={
@@ -67,13 +67,8 @@ function App() {
             }
           />
 
-          {/* changes pulled from teh frontend branch */}
-          <Route
-            path="/doctorbyspecialisation/:specialisation"
-            element={
-              <DoctorBySpecialisation />
-            }
-          />
+          {/* Specialized Routes */}
+          <Route path="/doctorbyspecialisation/:specialisation" element={<DoctorBySpecialisation />} />
           <Route
             path="/book-appointment/:doctorId"
             element={
@@ -88,21 +83,20 @@ function App() {
             path="/profile/:doctorId"
             element={
               user
-                ? isDoctor || isPatient
+                ? (isDoctor || isPatient)
                   ? <DoctorProfilePage />
                   : <Navigate to="/" />
                 : <Navigate to="/doctorlogin" />
             }
           />
 
-          {/* Admin panel */}
-          <Route
-            path="/admin"
-            element=<AdminPage />
-          />
+          {/* Admin */}
+          <Route path="/admin" element={user ? <AdminPage /> : <Navigate to="/" />} />
 
-<Route path="/Chat" element={<Chat />} />
-
+          {/* Misc */}
+          <Route path="/Chat" element={<Chat />} />
+          <Route path="/VideoCall" element={<VideoCall />} />
+          <Route path="/VideoRoom/:id" element={<VideoRoom />} />
         </Routes>
       </div>
     </Router>

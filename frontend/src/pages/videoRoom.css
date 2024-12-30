@@ -1,0 +1,51 @@
+/* videoRoom.css */
+
+/* Ensures full-screen layout */
+#video-container {
+    width: 100vw;  /* Full width */
+    height: 100vh; /* Full height */
+    background-color: #F5EFE7; /* beigelight */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Styling for the video container (the actual video call interface) */
+#video-container .zego-container {
+    width: 80%;
+    height: 80%;
+    max-width: 1200px;
+    max-height: 800px;
+    background-color: #D8C4B6; /* beigedark */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Custom styling for buttons (if any) within the video call */
+.zego-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background-color: #213555; /* navydark */
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Button hover state */
+.zego-btn:hover {
+    background-color: #3E5879; /* navylight */
+}
+
+/* Ensures video is responsive */
+.zego-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
