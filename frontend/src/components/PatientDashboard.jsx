@@ -78,17 +78,17 @@ function PatientDashboard() {
                         </Link>
                     </div>
 
-                    {/* Health Tips Section */}
+                    {/* Chat with the Patient */}
                     <div className="bg-white rounded-lg shadow-md p-6">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Health Tips</h2>
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Live Chat</h2>
                         <p className="text-gray-600 mb-6">
-                            Explore articles and tips for maintaining a healthy lifestyle.
+                            Talk to your Doctor one on one without needing an external platform.
                         </p>
                         <Link
-                            to="/health-tips"
+                            to="/chat"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
-                            Read Tips
+                           Open Live Chat
                         </Link>
                     </div>
                 </div>
