@@ -30,6 +30,8 @@ const io = new Server(server, {
   },
 });
 
+// middleware
+app.use(express.json());
 
 // Use CORS middleware to allow requests from specific origins (like your frontend)
 app.use(cors({
@@ -37,9 +39,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   credentials: true,
 }));
-
-// middleware
-app.use(express.json());
 
 // logger middleware
 app.use((req, res, next) => {
@@ -51,12 +50,6 @@ app.use((req, res, next) => {
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/appointments', appointmentRoutes);
-
-// Error handling middleware (after all routes)
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({ error: err.message || 'Something went wrong!' });
-});
 
 // Socket.IO connection
 io.on('connection', (socket) => {
@@ -76,23 +69,22 @@ io.on('connection', (socket) => {
   });
 });
 
-// Connect to database
+// Error handling middleware (after all routes)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({ error: err.message || 'Something went wrong!' });
+});
+
+
+//connect to database
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     // listen for requests
-    app.listen(process.env.PORT, () => {
-      console.log(`Connected to database, app listening on port ${process.env.PORT}`);
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, () => { // Use `server` instead of `app`
+      console.log(`connected to database, app listening on port ${PORT}`);
     });
   })
   .catch((error) => {
-    console.error('Database connection failed:', error);
-    process.exit(1); // Terminate the app if DB connection fails
+    console.log(error);
   });
-
-// Graceful shutdown
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
-    console.log('Mongoose connection closed due to app termination');
-    process.exit(0);
-  });
-});

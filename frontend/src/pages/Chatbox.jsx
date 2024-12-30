@@ -11,7 +11,7 @@ function ChatBox({ socket, username, room }) {
         room,
         author: username,
         message: currentMessage,
-        time: new Date(Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        time: new Date(Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
       await socket.emit("send_message", messageData);
@@ -34,28 +34,34 @@ function ChatBox({ socket, username, room }) {
   }, [socket]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-beigelight">
-      <div className="flex flex-col w-full h-2/3 bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="flex items-center justify-center h-screen w-screen bg-beigelight">
+      <div className="flex flex-col w-full h-full bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="bg-navydark p-4 text-center">
           <p className="text-beigelight text-2xl font-bold">LIVE CHAT</p>
         </div>
-        <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
+        <div className="flex-1 p-4 overflow-y-auto">
           <ScrollToBottom className="flex flex-col space-y-4">
             {messageList.map((messageContent, index) => (
               <div
                 key={index}
-                className={`flex flex-col max-w-[70%] mb-4 ${
-                  username === messageContent.author
-                    ? "self-start bg-beigedark rounded-tl-lg rounded-br-lg p-3 shadow-md"
-                    : "self-end bg-navydark text-beigelight rounded-tr-lg rounded-bl-lg p-3 shadow-md"
-                }`}
+                className={`chat ${username === messageContent.author ? "chat-end" : "chat-start"}`}
               >
-                <div className="text-lg break-words">
-                  <p>{messageContent.message}</p>
-                </div>
-                <div className="flex justify-between px-2 text-xs text-gray-600 mt-1">
-                  <p className="font-semibold">{messageContent.author}</p>
-                  <p>{messageContent.time}</p>
+                <div
+                  className={`chat-bubble rounded-lg p-4 ${
+                    username === messageContent.author
+                      ? "bg-beigedark text-navydark"
+                      : "bg-navylight text-beigelight"
+                  } shadow-md`}
+                >
+                  <p className="text-lg leading-relaxed">{messageContent.message}</p>
+                  <div
+                    className={`text-xs mt-2 flex justify-between ${
+                      username === messageContent.author ? "text-navylight" : "text-beigelight"
+                    }`}
+                  >
+                    <span className="mr-2">{messageContent.author}</span>
+                    <span className="ml-2">{messageContent.time}</span>
+                  </div>
                 </div>
               </div>
             ))}
