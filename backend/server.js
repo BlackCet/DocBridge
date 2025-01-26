@@ -14,6 +14,8 @@ const appointmentRoutes = require("./routes/appointmentRoutes");
 // load environment variables
 dotenv.config();
 
+// console.log('JWT Secret:', process.env.SECRET); // Log secret from .env
+
 // Initialize express
 const app = express();
 
@@ -53,7 +55,7 @@ app.use('/api/appointments', appointmentRoutes);
 
 // Socket.IO connection
 io.on('connection', (socket) => {
-  console.log(`New WebSocket connection established: ${socket.id}`);
+  // console.log(`New WebSocket connection established: ${socket.id}`);
 
   socket.on("join_room", (data) => {
     socket.join(data);
@@ -65,7 +67,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('WebSocket connection closed.');
+    // console.log('WebSocket connection closed.');
   });
 });
 

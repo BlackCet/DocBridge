@@ -17,7 +17,7 @@ function DoctorDashboard() {
                             View, approve, or reschedule appointments with your patients.
                         </p>
                         <Link
-                            to="/appointments"
+                            to="/DoctorAppointment"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
                             Manage Appointments
