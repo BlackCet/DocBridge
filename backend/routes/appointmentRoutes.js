@@ -17,5 +17,4 @@ router.get('/doctor/:doctorId', requireAuth, getAppointmentsByDoctor);
 // Update appointment status (approve or reject)
 router.patch('/:appointmentId/status', updateAppointmentStatus);
 
-
 module.exports = router;
