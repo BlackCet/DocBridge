@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Appointment = require('../models/appointmentModel');
 const Doctor = require('../models/doctorModel');
-const Patient = require('../models/patientModel'); // Assuming patient model exists
+// const Patient = require('../models/patientModel'); // Assuming patient model exists
 
 // Create an appointment
 const createAppointment = async (req, res) => {
