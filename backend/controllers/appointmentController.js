@@ -1,15 +1,16 @@
-// const mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
 const Appointment = require('../models/appointmentModel');
 const Doctor = require('../models/doctorModel');
-const Patient = require('../models/patientModel'); // assuming patient model exists
+const Patient = require('../models/patientModel'); // Assuming patient model exists
 
+// Create an appointment
 const createAppointment = async (req, res) => {
     try {
         const { doctorId, appointmentDate, appointmentTime, symptoms, patientId } = req.body;
 
         console.log('Request Body:', req.body);
 
+        // Validate required fields
         const missingFields = [];
         if (!doctorId) missingFields.push('doctorId');
         if (!appointmentDate) missingFields.push('appointmentDate');
@@ -20,41 +21,44 @@ const createAppointment = async (req, res) => {
             return res.status(400).json({ error: `Missing required fields: ${missingFields.join(', ')}` });
         }
 
-        const patient = patientId || req.user._id; // patientId from the body or JWT
+        // Use patientId from the request body or fallback to req.user._id
+        const patient = patientId || req.user?._id;
 
         if (!patient) {
             return res.status(401).json({ error: 'Patient not authenticated' });
         }
 
+        // Validate doctor existence
         const doctor = await Doctor.findById(doctorId);
         if (!doctor) {
             return res.status(404).json({ error: 'Doctor not found' });
         }
 
+        // Ensure appointment time is in the future
         const today = new Date();
         const appointmentDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
-
         if (appointmentDateTime <= today) {
             return res.status(400).json({ error: 'Appointment time must be in the future' });
         }
 
+        // Check if the appointment slot is already booked
         const existingAppointment = await Appointment.findOne({
             doctor: doctorId,
             appointmentDate,
-            appointmentTime
+            appointmentTime,
         });
-
         if (existingAppointment) {
             return res.status(400).json({ error: 'Appointment slot is already booked' });
         }
 
+        // Create a new appointment
         const appointment = new Appointment({
-            patient: patient,
+            patient,
             doctor: doctorId,
             appointmentDate,
             appointmentTime,
             symptoms,
-            status: 'Pending' // Default status
+            status: 'Pending', // Default status
         });
 
         await appointment.save();
@@ -65,17 +69,19 @@ const createAppointment = async (req, res) => {
     }
 };
 
-// Controller to fetch appointments by doctor
+// Get appointments by doctor
 const getAppointmentsByDoctor = async (req, res) => {
     try {
-        const doctorId = req.params.doctorId;
-        console.log(doctorId)
-        // Fetch appointments for the specific doctor
+        const { doctorId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+            return res.status(400).json({ error: 'Invalid doctor ID' });
+        }
+
         const appointments = await Appointment.find({ doctor: doctorId })
             .populate('patient', 'fullName') // Populate patient details
             .populate('doctor', 'fullName specialization'); // Populate doctor details
-        
-        console.log('Appointments:', appointments);
+
         if (!appointments.length) {
             return res.status(404).json({ error: 'No appointments found for this doctor' });
         }
@@ -87,42 +93,14 @@ const getAppointmentsByDoctor = async (req, res) => {
     }
 };
 
-// Controller to update appointment status (approve or reject)
-// const updateAppointmentStatus = async (req, res) => {
-//     try {
-//         const {appointmentId} = req.params;
-//         console.log('Appointment ID:', req.params);
-//         const { status } = req.body;
-
-//         if (!status || !['Approved', 'Rejected'].includes(status)) {
-//             return res.status(400).json({ error: 'Invalid status. It should be "Approved" or "Rejected".' });
-//         }
-
-//         // Find and update the appointment status
-//         const appointment = await Appointment.findByIdAndUpdate(
-//             appointmentId,
-//             { status },
-//             { new: true }
-//         );
-
-//         if (!appointment) {
-//             return res.status(404).json({ error: 'Appointment not found' });
-//         }
-
-//         res.status(200).json(appointment);
-//     } catch (error) {
-//         console.error('Error updating appointment status:', error);
-//         res.status(500).json({ error: 'Failed to update appointment status' });
-//     }
-// };
-
+// Update appointment status
 const updateAppointmentStatus = async (req, res) => {
     try {
         const { appointmentId } = req.params;
         const { status } = req.body;
 
-        console.log('Appointment ID:', appointmentId); // Log incoming appointment ID
-        console.log('Status:', status); // Log incoming status
+        console.log('Appointment ID:', appointmentId);
+        console.log('Status:', status);
 
         // Validate appointment ID
         if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
@@ -136,7 +114,7 @@ const updateAppointmentStatus = async (req, res) => {
             });
         }
 
-        // Find and update appointment
+        // Find and update the appointment
         const appointment = await Appointment.findByIdAndUpdate(
             appointmentId,
             { status },
@@ -147,7 +125,7 @@ const updateAppointmentStatus = async (req, res) => {
             return res.status(404).json({ error: 'Appointment not found' });
         }
 
-        console.log('Updated Appointment:', appointment); // Log updated appointment
+        console.log('Updated Appointment:', appointment);
         res.status(200).json(appointment);
     } catch (error) {
         console.error('Error updating appointment status:', error);
@@ -155,7 +133,7 @@ const updateAppointmentStatus = async (req, res) => {
     }
 };
 
-
+// Export the controllers
 module.exports = {
     createAppointment,
     getAppointmentsByDoctor,
