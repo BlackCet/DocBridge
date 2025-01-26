@@ -47,10 +47,10 @@ const doctorSchema = new Schema({
         type: String,
         required: true
     },
-    // usertype: {
-    //     type: String,
-    //     default: "doctor"
-    // },
+    usertype: {
+        type: String,
+        default: "doctor"
+    },
     experience: {
         type: Number,
         required: true
