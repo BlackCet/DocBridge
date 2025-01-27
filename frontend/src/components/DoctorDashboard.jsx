@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 function DoctorDashboard() {
     const { user } = useAuthContext(); 
+    console.log("Doctor id: ",user.doctor._id);
     return (
         <div className=" min-h-screen">
             <div className="container mx-auto py-10 px-4">

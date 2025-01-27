@@ -1,19 +1,19 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import DoctorAppointmentManage from '../components/DoctorAppointmentManage';
+import PatientAppointmentManage from '../components/PatientAppointmentManage';
 import Footer from '../components/Footer';
 import { useAuthContext } from "../hooks/useAuthContext";
 
-function DoctorAppointment() {
+function PatientAppointment() {
     const { user } = useAuthContext(); 
-    const doctorId = user.doctor._id;
+    const patientId = user.patient._id;
     return (
         <div>
             <Navbar />
-            <DoctorAppointmentManage doctorId={doctorId} /> {/* Pass dynamic doctorId */}
+            <PatientAppointmentManage patientId={patientId}/>
             <Footer />
         </div>
     );
 }
 
-export default DoctorAppointment;
+export default PatientAppointment;

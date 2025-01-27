@@ -15,7 +15,7 @@ function PatientDashboard() {
                             Schedule, reschedule, or cancel your appointments with ease.
                         </p>
                         <Link
-                            to="/appointments"
+                            to="/PatientAppointment"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
                             View Appointments

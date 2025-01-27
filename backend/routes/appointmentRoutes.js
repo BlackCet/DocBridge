@@ -2,7 +2,8 @@ const express = require('express');
 const {
     createAppointment,
     getAppointmentsByDoctor,
-    updateAppointmentStatus
+    updateAppointmentStatus,
+    getAppointmentsByPatient
 } = require('../controllers/appointmentController');
 
 const router = express.Router();
@@ -12,7 +13,8 @@ const requireAuth = require('../middleware/requireAuth');
 router.post('/patients/appointments', requireAuth, createAppointment);
 
 // Fetch appointments for a specific doctor
-router.get('/doctor/:doctorId', requireAuth, getAppointmentsByDoctor);
+router.get('/doctor/:doctorId',  getAppointmentsByDoctor);
+router.get('/patient/:patientId',  getAppointmentsByPatient);
 
 // Update appointment status (approve or reject)
 router.patch('/:appointmentId/status', updateAppointmentStatus);
