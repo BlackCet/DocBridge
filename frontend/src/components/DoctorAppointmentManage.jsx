@@ -1,3 +1,5 @@
+//frontend/src/components/DoctorAppointmentManage.jsx
+
 import { useState, useEffect } from "react";
 
 const DoctorAppointmentManage = ({ doctorId }) => {

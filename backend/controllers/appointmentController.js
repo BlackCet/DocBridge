@@ -143,7 +143,7 @@
 
 
 
-
+//backend/controllers/appointmentController.js
 const mongoose = require('mongoose');
 const Appointment = require('../models/appointmentModel');
 const Doctor = require('../models/doctorModel');
@@ -242,14 +242,18 @@ const getAppointmentsByPatient = async (req, res) => {
     try {
         const { patientId } = req.params;
 
+        
+
+
         // Validate patient ID
         if (!mongoose.Types.ObjectId.isValid(patientId)) {
             return res.status(400).json({ error: 'Invalid patient ID' });
         }
 
         const appointments = await Appointment.find({ patient: patientId })
-            .populate('doctor', 'fullName specialization') // Populate doctor details
-            .populate('patient', 'fullName'); // Populate patient details
+    .populate('doctor', 'fullName specialization')
+    .populate('patient', 'fullName')
+    .select('doctor appointmentDate appointmentTime symptoms status roomId'); // Include roomId
 
         if (!appointments.length) {
             return res.status(404).json({ error: 'No appointments found for this patient' });
@@ -263,27 +267,29 @@ const getAppointmentsByPatient = async (req, res) => {
 };
 
 // Update appointment status
+const { v4: uuidv4 } = require('uuid');
+
 const updateAppointmentStatus = async (req, res) => {
     try {
         const { appointmentId } = req.params;
         const { status } = req.body;
 
-        // Validate appointment ID
         if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
             return res.status(400).json({ error: 'Invalid appointment ID' });
         }
 
-        // Validate status
         if (!status || !['Approved', 'Rejected'].includes(status)) {
-            return res.status(400).json({
-                error: 'Invalid status. It should be "Approved" or "Rejected".',
-            });
+            return res.status(400).json({ error: 'Invalid status. It should be "Approved" or "Rejected".' });
         }
 
-        // Find and update the appointment
+        const update = { status };
+        if (status === 'Approved') {
+            update.roomId = uuidv4(); // Generate unique room ID
+        }
+
         const appointment = await Appointment.findByIdAndUpdate(
             appointmentId,
-            { status },
+            update,
             { new: true }
         );
 
@@ -297,6 +303,7 @@ const updateAppointmentStatus = async (req, res) => {
         res.status(500).json({ error: 'Failed to update appointment status' });
     }
 };
+
 
 // Export the controllers
 module.exports = {
