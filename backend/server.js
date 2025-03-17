@@ -10,6 +10,7 @@ const { Server } = require('socket.io'); // For WebSocket functionality
 const doctorRoutes = require('./routes/doctorRoutes');
 const patientRoutes = require('./routes/patientRoutes');
 const appointmentRoutes = require("./routes/appointmentRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 // load environment variables
 dotenv.config();
@@ -26,7 +27,7 @@ const server = http.createServer(app);
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173', // Allow your frontend origin
+    origin: 'http://localhost:5174', // Allow your frontend origin
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -37,7 +38,7 @@ app.use(express.json());
 
 // Use CORS middleware to allow requests from specific origins (like your frontend)
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Allow dynamic frontend URL
+  origin: process.env.FRONTEND_URL || 'http://localhost:5174', // Allow dynamic frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   credentials: true,
 }));
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.use("/api/payment", paymentRoutes);
 
 // Socket.IO connection
 io.on('connection', (socket) => {

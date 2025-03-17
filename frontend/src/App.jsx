@@ -17,6 +17,7 @@ import DoctorAppointment from "./pages/DoctorAppointment";
 import PatientAppointment from "./pages/PatientAppointment";
 import VideoCall from "./pages/VideoCall";
 import VideoRoom from "./pages/VideoRoom";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   const { user } = useAuthContext();
@@ -55,6 +56,7 @@ function App() {
           <Route path="/Chat" element={<Chat />} />
           <Route path="/VideoCall" element={<VideoCall />} />
           <Route path="/VideoRoom/:id" element={<VideoRoom />} />
+          <Route path="/Payment" element={<PaymentPage/>}/>
         </Routes>
       </div>
     </Router>

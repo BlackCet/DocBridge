@@ -71,7 +71,7 @@ function PatientDashboard() {
                             Access your payment receipts and billing information.
                         </p>
                         <Link
-                            to="/payments"
+                            to="/Payment"
                             className="bg-navylight text-white py-2 px-4 rounded hover:bg-navydark transition duration-200"
                         >
                             View Payments
