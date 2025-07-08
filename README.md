@@ -13,5 +13,5 @@ This project is a comprehensive healthcare application built using the **MERN st
   - Razorpay (for payment gateway)
   - Socket.io (For chat and video options)
  
-##Demo video: 
+## Demo video
 - https://bit.ly/Docbridge_demo_mp4
