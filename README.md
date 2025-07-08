@@ -9,4 +9,9 @@ This project is a comprehensive healthcare application built using the **MERN st
 - **Database**: MongoDB  
 - **Additional Tools**:  
   - Chart.js (for analytics)  
-  - OAuth (for third-party login)  
+  - OAuth (for third-party login)
+  - Razorpay (for payment gateway)
+  - Socket.io (For chat and video options)
+ 
+##Demo video: 
+- https://bit.ly/Docbridge_demo_mp4
